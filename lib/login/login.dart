@@ -9,7 +9,24 @@ class Loginscreen extends StatefulWidget {
   _LoginscreenState createState() => _LoginscreenState();
 }
 
-class _LoginscreenState extends State<Loginscreen> {
+class _LoginscreenState extends State<Loginscreen>
+    with SingleTickerProviderStateMixin {
+  AnimationController _controller;
+
+  @override
+  void initState() {
+    //TODO: implement init state
+    // vsync triggers update
+    _controller =
+        AnimationController(vsync: this, duration: Duration(seconds: 2));
+    super.initState();
+  }
+
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,9 +34,18 @@ class _LoginscreenState extends State<Loginscreen> {
         children: [
           SizedBox.expand(
             child: CustomPaint(
-              painter: BackgroundPainter(),
+              painter: BackgroundPainter(
+                animation: _controller.view,
+              ),
             ),
-          )
+          ),
+          Center(
+              child: RaisedButton(
+            onPressed: () {
+              _controller.forward(from: 0);
+            },
+            child: Text('Animate'),
+          )),
         ],
       ),
     );

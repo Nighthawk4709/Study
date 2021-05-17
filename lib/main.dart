@@ -15,9 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Study',
       theme: ThemeData(backgroundColor: Colors.transparent),
-      home: Scaffold(
-        body: Loginscreen(),
-      ),
+      home: Loginscreen(),
     );
   }
 }
