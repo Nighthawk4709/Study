@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:study/animation/background_painter.dart';
-import 'authenticate.dart';
+import 'package:lit_firebase_auth/lit_firebase_auth.dart';
+import 'signin.dart';
+import 'register.dart';
 
 //here we will create the front-end required for client side
 
-class Loginscreen extends StatefulWidget {
+class LogInscreen extends StatefulWidget {
   @override
-  _LoginscreenState createState() => _LoginscreenState();
+  _LogInscreenState createState() => _LogInscreenState();
 }
 
-class _LoginscreenState extends State<Loginscreen>
+class _LogInscreenState extends State<LogInscreen>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
+
+  ValueNotifier<bool> showSignInPage = ValueNotifier<bool>(true);
 
   @override
   void initState() {
@@ -30,7 +34,8 @@ class _LoginscreenState extends State<Loginscreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+      body: LitAuth.custom(
+          child: Stack(
         children: [
           SizedBox.expand(
             child: CustomPaint(
@@ -39,15 +44,25 @@ class _LoginscreenState extends State<Loginscreen>
               ),
             ),
           ),
-          Center(
-              child: RaisedButton(
-            onPressed: () {
-              _controller.forward(from: 0);
-            },
-            child: Text('Animate'),
-          )),
+          ValueListenableBuilder<bool>(
+              valueListenable: showSignInPage,
+              builder: (context, value, child) {
+                return value
+                    ? SignIn(
+                        onRegisterClicked: () {
+                          context.resetSignInForm();
+                          showSignInPage.value = false;
+                          _controller.forward();
+                        },
+                      )
+                    : Register(onSignInPressed: () {
+                        context.resetSignInForm();
+                        showSignInPage.value = true;
+                        _controller.reverse();
+                      });
+              })
         ],
-      ),
+      )),
     );
   }
 }
