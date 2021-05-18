@@ -26,7 +26,7 @@ class SignInBar extends StatelessWidget {
             label,
             style: const TextStyle(
               fontWeight: FontWeight.w800,
-              color: Colors.white,
+              color: ExtendedColor.darkBlue,
               fontSize: 24,
             ),
           ),

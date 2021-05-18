@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:study/layoutapp/home.dart';
 import 'package:study/login/login.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:lit_firebase_auth/lit_firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'animation/background_painter.dart';
+import 'package:study/layoutapp/home.dart';
 
 // on opening of screen we will make show login page
 // if he/she is not having account he/she can create one
@@ -41,21 +43,23 @@ class MyApp extends StatelessWidget {
               twitter: true,
             ),
             child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'Study',
-              themeMode: ThemeMode.light,
-              darkTheme: ThemeData.dark(),
-              theme: ThemeData(
-                visualDensity: VisualDensity.adaptivePlatformDensity,
-                textTheme: GoogleFonts.muliTextTheme(),
-                accentColor: ExtendedColor.lightBlue,
-                appBarTheme: const AppBarTheme(
-                  brightness: Brightness.dark,
-                  color: ExtendedColor.darkBlue,
+                debugShowCheckedModeBanner: false,
+                title: 'Study',
+                themeMode: ThemeMode.light,
+                darkTheme: ThemeData.dark(),
+                theme: ThemeData(
+                  visualDensity: VisualDensity.adaptivePlatformDensity,
+                  textTheme: GoogleFonts.muliTextTheme(),
+                  accentColor: ExtendedColor.lightBlue,
+                  appBarTheme: const AppBarTheme(
+                    brightness: Brightness.dark,
+                    color: ExtendedColor.darkBlue,
+                  ),
                 ),
-              ),
-              home: LogInscreen(),
-            ),
+                home: LitAuthState(
+                  authenticated: HomeScreen(),
+                  unauthenticated: LogInscreen(),
+                )),
           );
         }
 

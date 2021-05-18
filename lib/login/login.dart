@@ -3,6 +3,7 @@ import 'package:study/animation/background_painter.dart';
 import 'package:lit_firebase_auth/lit_firebase_auth.dart';
 import 'signin.dart';
 import 'register.dart';
+import 'package:animations/animations.dart';
 
 //here we will create the front-end required for client side
 
@@ -35,34 +36,61 @@ class _LogInscreenState extends State<LogInscreen>
   Widget build(BuildContext context) {
     return Scaffold(
       body: LitAuth.custom(
-          child: Stack(
-        children: [
-          SizedBox.expand(
-            child: CustomPaint(
-              painter: BackgroundPainter(
-                animation: _controller.view,
-              ),
+          errorNotification: const NotificationConfig(
+            backgroundColor: ExtendedColor.darkBlue,
+            icon: Icon(
+              Icons.error_outline,
+              color: Colors.deepOrange,
+              size: 32,
             ),
           ),
-          ValueListenableBuilder<bool>(
-              valueListenable: showSignInPage,
-              builder: (context, value, child) {
-                return value
-                    ? SignIn(
-                        onRegisterClicked: () {
-                          context.resetSignInForm();
-                          showSignInPage.value = false;
-                          _controller.forward();
-                        },
-                      )
-                    : Register(onSignInPressed: () {
-                        context.resetSignInForm();
-                        showSignInPage.value = true;
-                        _controller.reverse();
-                      });
-              })
-        ],
-      )),
+          successNotification: const NotificationConfig(
+              backgroundColor: ExtendedColor.darkBlue,
+              icon: Icon(Icons.check, color: Colors.white, size: 32)),
+          child: Stack(
+            children: [
+              SizedBox.expand(
+                child: CustomPaint(
+                  painter: BackgroundPainter(
+                    animation: _controller.view,
+                  ),
+                ),
+              ),
+              Center(
+                  child: ConstrainedBox(
+                      constraints: BoxConstraints(maxWidth: 800),
+                      child: ValueListenableBuilder<bool>(
+                          valueListenable: showSignInPage,
+                          builder: (context, value, child) {
+                            return PageTransitionSwitcher(
+                                duration: Duration(milliseconds: 850),
+                                transitionBuilder:
+                                    (child, animation, secondaryAnimation) {
+                                  return SharedAxisTransition(
+                                    animation: animation,
+                                    secondaryAnimation: secondaryAnimation,
+                                    transitionType:
+                                        SharedAxisTransitionType.vertical,
+                                    fillColor: Colors.transparent,
+                                    child: child,
+                                  );
+                                },
+                                child: value
+                                    ? SignIn(
+                                        onRegisterClicked: () {
+                                          context.resetSignInForm();
+                                          showSignInPage.value = false;
+                                          _controller.forward();
+                                        },
+                                      )
+                                    : Register(onSignInPressed: () {
+                                        context.resetSignInForm();
+                                        showSignInPage.value = true;
+                                        _controller.reverse();
+                                      }));
+                          })))
+            ],
+          )),
     );
   }
 }
