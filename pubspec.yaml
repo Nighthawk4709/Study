@@ -29,12 +29,18 @@ dependencies:
   google_fonts: ^1.1.0
   lint: ^1.2.0
   animations: ^1.1.2
+  flutter_launcher_icons: ^0.9.0
+  hovering: ^1.0.4
+  table_calendar: ^2.2.1
+  shared_preferences: ^2.0.5
+  syncfusion_flutter_calendar: ^19.1.64
 
-
+  intl: 
+  provider:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  flutter_launcher_icons: ^0.9.0
+  
 
 dev_dependencies:
   flutter_test:
