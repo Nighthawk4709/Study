@@ -72,7 +72,7 @@ class _EventEditingPageState extends State<EventEditingPage> {
         style: TextStyle(fontSize: 24),
         decoration: InputDecoration(
             border: UnderlineInputBorder(), hintText: 'Add Title'),
-        onFieldSubmitted: (_) => saveForm(),
+        onFieldSubmitted: (_) {},
         validator: (title) =>
             title != null && title.isEmpty ? 'Title Cannot be Empty' : null,
         controller: titleController,

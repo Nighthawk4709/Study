@@ -2,7 +2,7 @@ import 'dart:ffi';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
-import 'package:study/layoutapp/Dashboard_courses/bottomAppBar.dart';
+
 import 'package:study/layoutapp/Dashboard_courses/drawer.dart';
 import '../home.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
@@ -20,11 +20,9 @@ class _CalendarState extends State<Calendar> {
       create: (context) => EventProvider(),
       child: Scaffold(
         drawer: DrawerMain(),
-        appBar: AppBar(
-          title: Text("Study Meet"),
-        ),
+
         body: NewCalendar(),
-        bottomNavigationBar: BottomAppBar2(),
+
         //event add in sf calendar
         floatingActionButton: FloatingActionButton(
             child: Icon(Icons.create),

@@ -44,7 +44,7 @@ class DrawerMain extends Drawer {
               title: Text('Logout'),
               onTap: () {
                 context.signOut();
-                //Navigator.of(context).pop();
+                Navigator.of(context, rootNavigator: true).pop(context);
               },
             ),
           ],
